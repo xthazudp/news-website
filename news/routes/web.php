@@ -42,4 +42,6 @@ Route::get('/about',['uses'=>'AboutController@about','as'=>'about']);
 Route::group(['prefix'=>'back'],function(){
     Route::get('/', 'Admin\DashboardController@index');
     Route::get('/category', 'Admin\CategoryController@index');
+        Route::get('/category/create', 'Admin\CategoryController@create');
+        // Route::get('/category/edit', 'Admin\CategoryController@edit');
 });
