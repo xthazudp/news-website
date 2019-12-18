@@ -43,5 +43,10 @@ Route::group(['prefix'=>'back'],function(){
     Route::get('/', 'Admin\DashboardController@index');
     Route::get('/category', 'Admin\CategoryController@index');
         Route::get('/category/create', 'Admin\CategoryController@create');
-        // Route::get('/category/edit', 'Admin\CategoryController@edit');
+        Route::get('/category/edit', 'Admin\CategoryController@edit');
 });
+
+Route::get('/query','DbController@index');
+
+Route::get('/joining','DbController@joining');
+
