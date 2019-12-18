@@ -38,3 +38,8 @@ Route::get('/add','AddController@index');
 Route::view('/contact','contact');
 
 Route::get('/about',['uses'=>'AboutController@about','as'=>'about']);
+
+Route::group(['prefix'=>'back'],function(){
+    Route::get('/', 'Admin\DashboardController@index');
+    Route::get('/category', 'Admin\CategoryController@index');
+});
