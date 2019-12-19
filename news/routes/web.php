@@ -44,6 +44,11 @@ Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
     Route::get('/category', 'Admin\CategoryController@index');
         Route::get('/category/create', 'Admin\CategoryController@create');
         Route::get('/category/edit', 'Admin\CategoryController@edit');
+        Route::get('/permission', 'Admin\PermissionController@index');
+        Route::get('/permission/create', 'Admin\PermissionController@create');
+        Route::post('/permission/store', 'Admin\PermissionController@store');
+        Route::get('/permission/edit/{id}', ['uses'=>'Admin\PermissionController@edit', 'as'=>'permission-edit']);
+        Route::put('/permission/edit/{id}', ['uses'=>'Admin\PermissionController@update', 'as'=>'permission-update']);
 });
 
 Route::get('/query','DbController@index');
