@@ -49,6 +49,13 @@ Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
         Route::post('/permission/store', 'Admin\PermissionController@store');
         Route::get('/permission/edit/{id}', ['uses'=>'Admin\PermissionController@edit', 'as'=>'permission-edit']);
         Route::put('/permission/edit/{id}', ['uses'=>'Admin\PermissionController@update', 'as'=>'permission-update']);
+        Route::delete('/permission/delete/{id}', ['uses'=>'Admin\PermissionController@destroy', 'as'=>'permission-delete']);
+        Route::get('/roles', 'Admin\RoleController@index');
+        Route::get('/roles/create', 'Admin\RoleController@create');
+        Route::post('/roles/store', 'Admin\RoleController@store');
+        Route::get('/roles/edit/{id}', ['uses'=>'Admin\RoleController@edit','as'=>'role-edit'] );
+        Route::put('/roles/edit/{id}', ['uses'=>'Admin\RoleController@update','as'=>'role-update'] );
+        Route::delete('/roles/delete/{id}', ['uses'=>'Admin\RoleController@destroy','as'=>'role-delete'] );
 });
 
 Route::get('/query','DbController@index');

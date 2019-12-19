@@ -57,7 +57,10 @@
                         <td>{{ $row->display_name}}</td>
                         <td>{{ $row->description }}</td>
                         <td>
-                          <a href="{{ url('/back/permission/edit'.$row->id) }}" class="btn btn-primary">Edit</a>
+                          <a href="{{ url('/back/permission/edit/'.$row->id) }}" class="btn btn-primary">Edit</a>
+                          {{ Form::open(['method'=>'DELETE','url'=>['/back/permission/delete/'.$row->id],'style'=>'display:inline' ]) }}
+                          {{ Form::submit('Delete',['class'=>'btn btn-danger']) }}
+                          {{ Form::close() }}
                         </td>
                       </tr>
                       @endforeach

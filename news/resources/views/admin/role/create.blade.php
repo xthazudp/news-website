@@ -1,6 +1,17 @@
 @extends('admin.layout.master')
 @section('content')
 
+<script>
+      jQuery(document).ready(function() {
+          jQuery(".myselect").chosen({
+              disable_search_threshold: 10,
+              no_results_text: "Oops, nothing found!",
+              width: "100%"
+          });
+      });
+     
+  </script>
+
 <div class="row">
     <div class="col-md-12">
 
@@ -22,7 +33,7 @@
                                         </div>
                                     @endif
                                   <hr>
-                                  {{ Form::model($permission,['route' => ['permission-update',$permission->id],'method'=>'put']) }}
+                                  {{ Form::open(array('url' => 'back/roles/store','method'=>'post')) }}
                                       <div class="form-group">
                                             {{ Form::label('name', 'Name', array('class' => 'control-label mb-1')) }}
                                             {{ form::text('name',null,['class'=>'form-control','id'=>'name']) }}
@@ -38,10 +49,15 @@
                                             {{ form::textarea('description',null,['class'=>'form-control','id'=>'description']) }}
                                       </div>
 
+                                      <div class="form-group">
+                                            {{ Form::label('permission', 'Permission', array('class' => 'control-label mb-1')) }}
+                                            {{ form::select('permission[]',$permission,null,['class'=>'form-control myselect','data-placeholder'=>'Select Permission','multiple']) }}
+                                      </div>
+
                                       <div>
                                           <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
                                               <i class="fa fa-lock fa-lg"></i>&nbsp;
-                                              <span id="payment-button-amount">Update</span>
+                                              <span id="payment-button-amount">Submit</span>
                                               <span id="payment-button-sending" style="display:none;">Sending…</span>
                                           </button>
                                       </div>
