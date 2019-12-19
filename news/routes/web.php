@@ -39,7 +39,7 @@ Route::view('/contact','contact');
 
 Route::get('/about',['uses'=>'AboutController@about','as'=>'about']);
 
-Route::group(['prefix'=>'back'],function(){
+Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
     Route::get('/', 'Admin\DashboardController@index');
     Route::get('/category', 'Admin\CategoryController@index');
         Route::get('/category/create', 'Admin\CategoryController@create');
@@ -50,3 +50,9 @@ Route::get('/query','DbController@index');
 
 Route::get('/joining','DbController@joining');
 
+Route::get('/model','DbController@model');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
