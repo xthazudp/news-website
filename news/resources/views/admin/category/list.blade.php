@@ -399,10 +399,8 @@
         </div><!-- .content -->
 
 <script src="{{ asset('public/admin/assets/js/vendor/jquery-2.1.4.min.js ') }}"></script>
-   
 <script src="{{ asset('public/admin/assets/js/plugins.js ') }}"></script>
 <script src="{{ asset('public/admin/assets/js/main.js ') }}"></script>
-
 <script src="{{ asset('public/admin/assets/js/lib/data-table/datatables.min.js') }}  "></script>
 <script src="{{ asset('public/admin/assets/js/lib/data-table/dataTables.bootstrap.min.js ') }}"></script>
 <script src="{{ asset('public/admin/assets/js/lib/data-table/dataTables.buttons.min.js ') }}"></script>
