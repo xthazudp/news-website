@@ -6,11 +6,11 @@
                 <div class="col-md-4">
                     <div class="left_section">
                                             <span class="date">
-                                                Sunday .
+                                                {{ date('l') }}
                                             </span>
                         <!-- Date -->
                                             <span class="time">
-                                                09 August . 2016
+                                                {{ date('j F. Y') }}
                                             </span>
                         <!-- Time -->
                         <div class="social">
@@ -30,15 +30,15 @@
                 </div>
                 <div class="col-md-4">
                     <div class="logo">
-                        <a href="index.html"><img src="{{ asset('public/front/img/logo.png') }}" alt="Tech NewsLogo"></a>
+                        <a href="index.html"><img src="{{ asset('public/others') }}/{{ $shareData['front_logo'] }}" alt="Tech NewsLogo"></a>
                     </div>
                     <!-- Logo Section -->
                 </div>
                 <div class="col-md-4">
                     <div class="right_section">
                         <ul class="nav navbar-nav">
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">Register</a></li>
+                            <li><a href="{{ url('/login') }}">Login</a></li>
+                            <li><a href="{{ url('/register') }}">Register</a></li>
                             <li class="dropdown lang">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">En <i
@@ -93,8 +93,13 @@
                     <div class="collapse navbar-collapse" id="#navbar-collapse-1">
                         <ul class="nav navbar-nav main-nav">
                             <li class="active"><a href="{{ url('/') }}">Home</a></li>
-                            <li><a href="category.html">Mobile</a></li>
-                        
+                            @foreach($shareData['categories'] as $category)
+                            <li><a href="{{ url('/category') }}/{{ $category->name }}">{{ $category->name }}</a></li>
+                            @endforeach
+
+                            @foreach($shareData['authors'] as $author)
+                            <li><a href="{{ url('/author') }}/{{ $author->name }}">{{ $author->name }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                     <!-- .navbar-collapse -->
