@@ -50,7 +50,7 @@
                           </div>
 
                         </div>
-                    </div> <!-- .card -->
+        </div> <!-- .card -->
 
     </div>  
 </div>

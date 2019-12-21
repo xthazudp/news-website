@@ -45,6 +45,8 @@ Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
         Route::get('/category/create', 'Admin\CategoryController@create');
         Route::get('/category/edit', 'Admin\CategoryController@edit');
 
+        // For Permission Routing
+
         Route::get('/permission',
             [
                 'uses'=>'Admin\PermissionController@index',
@@ -92,6 +94,8 @@ Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
             ]
         );
 
+        // For Roles Routing
+
         Route::get('/roles', 'Admin\RoleController@index');
         Route::get('/roles/create', 'Admin\RoleController@create');
         Route::post('/roles/store', 'Admin\RoleController@store');
@@ -116,6 +120,8 @@ Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
             ] 
         );
 
+        // For Author Routing
+
         Route::get('/author', 'Admin\AuthorController@index');
         Route::get('/author/create', 'Admin\AuthorController@create');
         Route::post('/author/store', 'Admin\AuthorController@store');
@@ -137,6 +143,182 @@ Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
             [
                 'uses'=>'Admin\AuthorController@destroy',
                 'as'=>'author-delete'
+            ] 
+        );
+
+        // For Categories Routing
+
+        Route::get('/categories', 
+            [
+                'uses'=>'Admin\CategoryController@index',
+                'as'=>'category-list', 
+                'middleware'=> 'permission:Category List|All'
+            ] 
+        );
+
+        Route::get('/category/create', 
+            [
+                'uses'=>'Admin\CategoryController@create',
+                'as'=>'category-create', 
+                'middleware'=> 'permission:Category Create|All'
+            ] 
+        );
+
+        Route::post('/category/store', 
+            [
+                'uses'=>'Admin\CategoryController@store',
+                'as'=>'category-store', 
+                'middleware'=> 'permission:Category Store|All'
+            ] 
+        );
+
+        Route::put('/category/status/{id}', 
+            [
+                'uses'=>'Admin\CategoryController@status',
+                'as'=>'category-status', 
+                'middleware'=> 'permission:Category Store|All'
+            ] 
+        );
+
+        Route::get('/category/edit/{id}', 
+            [
+                'uses'=>'Admin\CategoryController@edit',
+                'as'=>'category-edit', 
+                'middleware'=> 'permission:Category edit|All'
+            ] 
+        );
+
+        Route::put('/category/update/{id}', 
+            [
+                'uses'=>'Admin\CategoryController@update',
+                'as'=>'category-update', 
+                'middleware'=> 'permission:Category update|All'
+            ] 
+        );
+
+        Route::delete('/category/delete/{id}', 
+            [
+                'uses'=>'Admin\CategoryController@destroy',
+                'as'=>'category-delete', 
+                'middleware'=> 'permission:Category delete|All'
+            ] 
+        );
+
+        // For Posts Routing
+
+        Route::get('/posts', 
+            [
+                'uses'=>'Admin\PostController@index',
+                'as'=>'post-list', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::get('/posts/create', 
+            [
+                'uses'=>'Admin\PostController@create',
+                'as'=>'post-create', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::post('/post/store', 
+            [
+                'uses'=>'Admin\PostController@store',
+                'as'=>'post-store', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::put('/post/status/{id}', 
+            [
+                'uses'=>'Admin\PostController@status',
+                'as'=>'post-status', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::put('/post/hot/news/{id}', 
+            [
+                'uses'=>'Admin\PostController@hot_news',
+                'as'=>'hot_news-status', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::get('/post/edit/{id}', 
+            [
+                'uses'=>'Admin\PostController@edit',
+                'as'=>'post-edit', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::put('/post/update/{id}', 
+            [
+                'uses'=>'Admin\PostController@update',
+                'as'=>'post-update', 
+                'middleware'=> 'permission:Post update|All'
+            ] 
+        );
+
+        Route::delete('/post/delete/{id}', 
+            [
+                'uses'=>'Admin\PostController@destroy',
+                'as'=>'post-delete', 
+                'middleware'=> 'permission:Post delete|All'
+            ] 
+        );
+
+        // for Comment Routing
+
+        Route::get('/comment/{id}', 
+            [
+                'uses'=>'Admin\CommentController@index',
+                'as'=>'comment-list', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::get('/comment/reply/{id}', 
+            [
+                'uses'=>'Admin\CommentController@reply',
+                'as'=>'comment-view', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::post('/comment/reply', 
+            [
+                'uses'=>'Admin\CommentController@store',
+                'as'=>'comment-reply', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::put('/comment/status/{id}', 
+            [
+                'uses'=>'Admin\CommentController@status',
+                'as'=>'comment-status', 
+                'middleware'=> 'permission:Post List|All'
+            ]
+        );
+
+        // for Setting Routes
+
+        Route::get('/settings', 
+            [
+                'uses'=>'Admin\SettingController@index',
+                'as'=>'setting', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::put('/settings/update', 
+            [
+                'uses'=>'Admin\SettingController@update',
+                'as'=>'setting-update', 
+                'middleware'=> 'permission:Post List|All'
             ] 
         );
 });
