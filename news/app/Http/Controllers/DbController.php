@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Employee;
 
 class DbController extends Controller
 {
@@ -28,5 +29,10 @@ class DbController extends Controller
                 ->where('status','0')
                 ->get();
                 dd($result);
+    }
+
+    public function model(){
+        $result = Employee::all();
+        dd($result);
     }
 }
