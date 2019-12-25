@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Providers;
-
+use App\Setting;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use App\Setting;
+
 use App\Category;
 use App\User;
 use App\Post;
@@ -31,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
         $categories = Category::where('status',1)->get();
         $authors = User::where('id','!=',1)->get();
         $most_viewed = Post::with(['creator','comments'])->where('status',1)->orderBy('view_count','DESC')->limit(5)->get();
-
-        // $most_commented = Post::withCount('comments')->where('status',1)->orderBy('comments_count','DESC')->limit(5)->get();
+        
+        $most_commented = Post::withCount('comments')->where('status',1)->orderBy('comments_count','DESC')->limit(5)->get();
 
         $shareData = array(
             'system_name'=>$system_name,
@@ -41,8 +41,8 @@ class AppServiceProvider extends ServiceProvider
             'admin_logo'=>$admin_logo,
             'categories'=>$categories,
             'authors'=>$authors,
-            'most_viewed'=>$most_viewed
-            // 'most_commented'=>$most_commented
+            'most_viewed'=>$most_viewed,
+            'most_commented'=>$most_commented
         );
 
         view()->share('shareData',$shareData);

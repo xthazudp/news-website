@@ -174,10 +174,10 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <p>&copy; Copyright 2016-Tech News . Design by: <a href="https://uicookies.com">uiCookies</a> </p>
+                        <p>&copy; Copyright 2016-National News . Design by: <a href="https://uicookies.com">xyz</a> </p>
                     </div>
                     <div class="col-sm-3">
-                        <p>Technology News Magazine</p>
+                        <p>National News Magazine</p>
                     </div>
                 </div>
             </div>
