@@ -60,7 +60,7 @@
                         <td style="width:5%">{{ ++$i }}</td>
                         <td>
                             @if(file_exists(public_path('/post/').$row->thumb_image))
-                                <img src="{{ asset('public/post') }} / {{ $row->thumb_image }}" class="img img-responsive">
+                                <img src="{{ asset('public/post') }}/{{ $row->thumb_image }}" class="img img-responsive">
                             @endif
                         </td>
                         <td style="width:10%">{{ $row->title }}</td>
@@ -76,7 +76,7 @@
                             {{ Form::close() }}
                         </td>
 
-                        <td> 
+                        <td style="width:5%"> 
                             {{ Form::open(['method'=>'PUT','url'=>['/back/post/hot/news/'.$row->id],'style'=>'display:inline' ]) }}
                                 @if($row->hot_news === 1)
                                     {{ Form::submit('No',['class'=>'btn btn-danger']) }}
