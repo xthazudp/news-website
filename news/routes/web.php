@@ -12,14 +12,18 @@
 */
 
 Route::get('/','HomePageController@index');
+// Route::get('/category/{id}', 'ListingPageController@category');
+// Route::get('/author/{id}', 'ListingPageController@listing');
 
-Route::get('/category/{id}', 'ListingPageController@listing1');
+Route::get('/category/{id}', 'ListingPageController@listing');
 
-Route::get('/author/{id}', 'ListingPageController@listing');
+// Route::get('/author/{id}', 'ListingPageController@listing');
 
 Route::get('/listing','ListingPageController@index');
 
-Route::get('/details','DetailsPageController@index');
+Route::get('/details/{slug}','DetailsPageController@index')->name('details');
+
+Route::post('/comments/' ,'DetailsPageController@comment');
 
 Route::get('/hello',function(){
     return 'Hello World';
@@ -276,9 +280,17 @@ Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
 
         // for Comment Routing
 
-        Route::get('/comment/{id}', 
+        Route::get('/comment/', 
             [
                 'uses'=>'Admin\CommentController@index',
+                'as'=>'comment-list', 
+                'middleware'=> 'permission:Post List|All'
+            ] 
+        );
+
+        Route::get('/comment/{id}', 
+            [
+                'uses'=>'Admin\CommentController@list',
                 'as'=>'comment-list', 
                 'middleware'=> 'permission:Post List|All'
             ] 

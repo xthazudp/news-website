@@ -9,7 +9,17 @@ use Auth;
 
 class CommentController extends Controller
 {
-    public function index($id){
+
+    public function index(){
+        $page_name =  'Comments';
+        if (Auth::user()->type === 1 || Auth::user()->hasRole('Editor')){
+            $data = Comment::with(['creator'])->orderBy('id','DESC')->get();
+        }else{
+            $data = Comment::with(['creator'])->where('created_by', Auth::user()->id)->orderBy('id','DESC')->get();
+        }
+        return view('admin.comment.list',compact('page_name','data'));
+    }
+    public function list($id){
     	$page_name =  'Comments';
     	$data = Comment::with(['post'])->where('post_id',$id)->orderBy('id','DESC')->get();
     	return view('admin.comment.list',compact('page_name','data'));

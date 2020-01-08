@@ -46,6 +46,12 @@
                 </li>
                 @endpermission
 
+                @permission(['Comment List','All'])
+                <li>
+                    <a href="{{ url('/back/comment') }}"> <i class="menu-icon fa fa-laptop"></i>Comments</a>
+                </li>
+                @endpermission
+
                 @permission(['System Settings','All'])
                 <li>
                     <a href="{{ url('/back/settings') }}"> <i class="menu-icon fa fa-laptop"></i>Settings</a>
