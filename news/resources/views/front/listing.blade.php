@@ -6,9 +6,9 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">News</a></li>
-                <li><a href="#">Tech</a></li>
-                <li class="active"><a href="#">Mobile</a></li>
+               
+                 <li class="active"><a href="#">Mobile</a></li>
+              
             </ol>
         </div>
     </div>
@@ -17,183 +17,110 @@
 <div class="container">
 <div class="row">
 <div class="col-md-8">
-<div class="entity_wrapper">
-    <div class="entity_title header_purple">
-        <h1><a href="category.html" target="_blank">Mobile</a></h1>
-    </div>
-    <!-- entity_title -->
-
-    <div class="entity_thumb">
-        <img class="img-responsive" src="{{ asset('public/front/img/category_img_top.jpg ')}} " alt="feature-top">
-    </div>
-    <!-- entity_thumb -->
-
-    <div class="entity_title">
-        <a href="single.html" target="_blank"><h3> Airbnb launches photo-centric app for iPads and Android
-            tablets. </h3></a>
-    </div>
-    <!-- entity_title -->
-
-    <div class="entity_meta">
-        <a href="#">10Aug- 2015</a>, by: <a href="#">Eric joan</a>
-    </div>
-    <!-- entity_meta -->
-
-    <div class="entity_content">
-        Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users
-        after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.
-    </div>
-    <!-- entity_content -->
-
-    <div class="entity_social">
-        <span><i class="fa fa-share-alt"></i>424 <a href="#">Shares</a> </span>
-        <span><i class="fa fa-comments-o"></i>4 <a href="#">Comments</a> </span>
-    </div>
-    <!-- entity_social -->
-
-</div>
-<!-- entity_wrapper -->
-
-
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="category_article_body">
-
-            <div class="top_article_img">
-                <img class="img-fluid" src="{{ asset('public/front/img/category_img1.jpg ')}} " alt="feature-top">
-            </div>
-            <!-- top_article_img -->
-
-            <div class="category_article_title">
-                <h5><a href="single.html" target="_blank">Airbnb launches photo-centric app for iPads and Android
-                    tablets. </a></h5>
-            </div>
-            <!-- category_article_title -->
-
-            <div class="article_date">
-                <a href="#">10Aug- 2015</a>, by: <a href="#">Eric joan</a>
-            </div>
-            <!-- article_date -->
-
-            <div class="category_article_content">
-                Collaboratively administrate empowered markets via plug-and-play networks.
-                Dynamically procrastinate B2C users after installed base benefits. Dramatically
-                visualize customer directed convergence without revolutionary ROI.
-            </div>
-            <!-- category_article_content -->
-
-            <div class="article_social">
-                <span><a href="#"><i class="fa fa-share-alt"></i>424 </a> Shares</span>
-                <span><i class="fa fa-comments-o"></i><a href="#">4</a> Comments</span>
-            </div>
-            <!-- article_social -->
-
+    @foreach($display as $key=>$post)
+    @if($key === 0)
+                    <div class="entity_wrapper">
+                        <div class="entity_title header_purple">
+                           <h1><a href="{{ url('/category') }}/{{ $post->category_id }}">{{ $post->category->name }}</a></h1>
+                        </div>
+                        <!-- entity_title -->
+                        <div class="entity_thumb">
+                           <img class="img-responsive" src="{{ asset('public/post') }}/{{ $post->main_image }}" alt="{{ $post->title }}">
+                        </div>
+                        <!-- entity_thumb -->
+                        <div class="entity_title">
+                           <a href="{{ url('/details') }}/{{ $post->slug }}" target="_blank">
+                              <h3> 
+                                {{ $post->title }}
+                              </h3>
+                           </a>
+                        </div>
+                        <!-- entity_title -->
+                        <div class="entity_meta">
+                           <a href="#">{{ date('F j-Y',strtotime($post->created_at)) }}</a>, by: <a href="{{ url('/author') }}/{{ $post->creator->id }}">{{ $post->creator->name }} </a>
+                        </div>
+                        <!-- entity_meta -->
+                        <div class="entity_content">
+                            {{ str_limit( $post->short_description,200,'...' )  }}
+                        </div>
+                        <!-- entity_content -->
+                        <div class="entity_social">
+                           <span><i class="fa fa-comments-o"></i>{{ count($post->comments) }} <a href="#">Comments</a> </span>
+                        </div>
+                        <!-- entity_social -->
+                    </div>
+                @else
+                    <!-- entity_wrapper -->
+                    @if($key === 1)
+                        <div class="row">
+                    @endif
+                        <div class="col-md-6" style="min-height: 555px;margin-bottom:2%">
+                           <div class="category_article_body">
+                              <div class="top_article_img">
+                                 <img class="img-fluid" src="{{ asset('public/post') }}/{{ $post->list_image }}" alt="{{ $post->title }}">
+                              </div>
+                              <!-- top_article_img -->
+                              <div class="category_article_title">
+                                 <h5>
+                                    <a href="{{ url('/details') }}/{{ $post->slug }}" target="_blank"> {{ $post->title }} </a>
+                                 </h5>
+                              </div>
+                              <!-- category_article_title -->
+                              <div class="article_date">
+                                 <a href="#">{{ date('F j-Y',strtotime($post->created_at)) }}</a>, by: <a href="{{ url('/author') }}/{{ $post->creator->id }}">{{ $post->creator->name }} </a>
+                              </div>
+                              <!-- article_date -->
+                              <div class="category_article_content">
+                                {{ str_limit( $post->short_description,100,'...' )  }}
+                              </div>
+                              <!-- category_article_content -->
+                              <div class="article_social">
+                                 <span><i class="fa fa-comments-o"></i>{{ count($post->comments) }} <a href="#">Comments</a> </span>
+                              </div>
+                              <!-- article_social -->
+                           </div>
+                           <!-- category_article_body -->
+                        </div>
+                        <!-- col-md-6 -->
+                    @if($loop->last)
+                        </div>
+                    @endif
+                @endif
+            @endforeach
+         <div style="margin-left: 40%">
+             {{ $display->links() }}
+         </div>
+         <!-- navigation -->
         </div>
-        <!-- category_article_body -->
+      <!-- col-md-8 -->
+        <div class="col-md-4">
+            <div class="widget">
+                <div class="widget_title widget_black">
+                    <h2><a href="#">Most Viewed</a></h2>
+                </div>
+                @foreach($shareData['most_viewed'] as $item)
+                <div class="media">
+                    <div class="media-left">
+                        <a href="{{ url('/details') }}/{{ $item->slug }}">
+                            <img class="media-object" src="{{ asset('public/post') }}/{{ $item->thumb_image }}" alt="{{ $item->title }}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">
+                            <a href="{{ url('/details') }}/{{ $item->slug }}" >{{ $item->title }}</a>
+                        </h3> <span class="media-date"><a href="#">{{ date( 'j F - Y',strtotime($item->created_at)) }}</a>,  by: <a href="{{ url('/author') }}/{{ $item->creator->id }}">{{ $item->creator->name }}</a></span>
 
-    </div>
-    <!-- col-md-6 -->
-
-    <div class="col-md-6">
-        <div class="category_article_body">
-            <div class="top_article_img">
-                <img class="img-responsive" src="{{ asset('public/front/img/category_img2.jpg')}} " alt="feature-top">
+                        <div class="widget_article_social">
+                            <span>
+                                <a href="single.html" target="_self"><i class="fa fa-comments-o"></i>{{ count($item->comments) }}</a> Comments
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                <p class="widget_divider"><a href="#" target="_self">More News&nbsp;&raquo;</a></p>
             </div>
-            <!-- top_article_img -->
-
-            <div class="category_article_title">
-                <h5><a href="single.html" target="_blank">Airbnb launches photo-centric app for iPads and Android
-                    tablets. </a></h5>
-            </div>
-            <!-- category_article_title -->
-
-            <div class="article_date">
-                <a href="#">10Aug- 2015</a>, by: <a href="#">Eric joan</a>
-            </div>
-            <!-- article_date -->
-
-            <div class="category_article_content">
-                Collaboratively administrate empowered markets via plug-and-play networks.
-                Dynamically procrastinate B2C users after installed base benefits. Dramatically
-                visualize customer directed convergence without revolutionary ROI.
-            </div>
-            <!-- category_article_content -->
-
-            <div class="article_social">
-                <span><a href="#"><i class="fa fa-share-alt"></i>424 </a> Shares</span>
-                <span><i class="fa fa-comments-o"></i><a href="#">4</a> Comments</span>
-            </div>
-            <!-- article_social -->
-
-        </div>
-        <!-- category_article_body -->
-
-    </div>
-    <!-- col-md-6 -->
-
-</div>
-<!-- row -->
-
-<div class="widget_advertisement">
-    <img class="img-responsive" src="{{ asset('public/front/img/category_advertisement.jpg')}}" alt="feature-top">
-</div>
-<!-- widget_advertisement -->
-
-
-<nav aria-label="Page navigation" class="pagination_section">
-    <ul class="pagination">
-        <li>
-            <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-            <a href="#" aria-label="Next" class="active"> <span aria-hidden="true">&raquo;</span> </a>
-        </li>
-    </ul>
-</nav>
-<!-- navigation -->
-
-</div>
-<!-- col-md-8 -->
-
-<div class="col-md-4">
-<div class="widget">
-    <div class="widget_title widget_black">
-        <h2><a href="#">Most Viewed</a></h2>
-    </div>
-
-   @foreach($shareData['most_viewed'] as $item)
-
-    <div class="media">
-        <div class="media-left">
-            <a href="{{ url('/details') }}/{{ $item->slug }}">
-                <img class="media-object" src="{{ asset('public/post') }}/{{ $item->thumb_image  }}" alt="{{ $item->title }}"></a>
-        </div>
-        <div class="media-body">
-            <h3 class="media-heading">
-                <a href="{{ url('/details') }}/{{ $item->slug }}">{{ $item->title }}</a>
-            </h3> <span class="media-date">
-                <a href="#">{{ date('j F -y',strtotime($item->created_at)) }}</a>,  by:
-                 <a href="{{ url('/author') }}/{{ $item->creator->id }}">{{ $item->creator->name }}</a></span>
-
-            <div class="widget_article_social">
-                
-                <span>
-                    <a href="single.html" target="_self"><i class="fa fa-comments-o"></i>{{ count($item->comments) }}</a> Comments
-                </span>
-            </div>
-        </div>
-    </div>
-    @endforeach
-     
-    <p class="widget_divider"><a href="#" target="_self">More News&nbsp;&raquo;</a></p>
-</div>
-<!-- Popular News -->
+            <!-- Popular News -->
 
 <div class="widget hidden-xs m30">
     <img class="img-responsive adv_img" src="{{ asset('public/front/img/right_add1.jpg')}}" alt="add_one">
@@ -293,5 +220,4 @@
 
 </div>
 <!-- Container -->
-
 @endsection

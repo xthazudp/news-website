@@ -156,7 +156,7 @@
                         <h3 class="media-heading"><a href="{{ url('/details') }}/{{ $item->slug }}" >{{ $item->title }}</a></h3>
                         <span class="media-date"><a href="{{ url('/author') }}/{{ $item->creator->id }}"  >{{ $item->creator->name }}</a>, {{ date('F j,Y',strtotime( $item->created_at )) }}</span>
 
-                        <div class="media_social">
+                        <div class="media_social"> 
                             
                             <span><a href="#"><i class="fa fa-comments-o"></i>{{ count($item->comments) }}</a> Comments</span>
                         </div>
